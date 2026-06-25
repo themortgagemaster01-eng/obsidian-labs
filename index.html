@@ -234,6 +234,40 @@ footer .cp{font-size:12px;color:#5a564e}
 @keyframes ty{0%,100%{opacity:.3;transform:translateY(0)}50%{opacity:1;transform:translateY(-4px)}}
 .draft-flag{position:fixed;top:0;left:0;z-index:1002;background:var(--gold);color:#1a1407;font-size:10px;font-weight:700;letter-spacing:1px;padding:3px 10px;border-bottom-right-radius:8px;text-transform:uppercase}
 </style>
+<style id="glass-upgrade">
+.hero-bg{position:absolute;inset:0;z-index:0;background:url('bg-gold.jpg') center/cover no-repeat;opacity:.5}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at 50% 42%,rgba(6,6,10,.15),rgba(6,6,10,.82) 75%)}
+#heroCanvas{opacity:.7;z-index:1}
+.hero-inner,.scrollcue{z-index:3}
+body{background:radial-gradient(900px 600px at 80% -5%,rgba(212,175,55,.07),transparent 60%),radial-gradient(800px 600px at -10% 20%,rgba(212,175,55,.05),transparent 55%),var(--bg)}
+/* 10x glassmorphism */
+.card,.calc,.tier,.quote,.step,.team-card{
+  background:linear-gradient(150deg,rgba(255,255,255,.10),rgba(255,255,255,.022) 52%),rgba(16,15,11,.42)!important;
+  -webkit-backdrop-filter:blur(26px) saturate(165%);backdrop-filter:blur(26px) saturate(165%);
+  border:1px solid rgba(255,255,255,.11)!important;
+  box-shadow:0 24px 64px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.22),inset 0 -24px 60px rgba(0,0,0,.28)!important}
+.card::after,.tier::after,.quote::after,.calc::after,.team-card::after{content:"";position:absolute;top:0;left:14%;right:14%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);opacity:.6;pointer-events:none}
+nav{background:linear-gradient(120deg,rgba(255,255,255,.07),rgba(12,12,18,.55))!important;
+  -webkit-backdrop-filter:blur(26px) saturate(170%);backdrop-filter:blur(26px) saturate(170%);
+  box-shadow:0 12px 44px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.18)!important}
+.ava-panel{background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(10,10,15,.9))!important;
+  -webkit-backdrop-filter:blur(30px) saturate(160%);backdrop-filter:blur(30px) saturate(160%);
+  box-shadow:0 30px 80px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.2)!important}
+.btn.ghost{background:linear-gradient(140deg,rgba(255,255,255,.08),rgba(255,255,255,.02))!important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+/* team */
+.team{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+@media(max-width:880px){.team{grid-template-columns:1fr 1fr}}
+.team-card{position:relative;padding:30px 22px;border-radius:20px;text-align:center;transition:transform .3s,border-color .3s;overflow:hidden}
+.team-card:hover{transform:translateY(-6px);border-color:var(--line)!important}
+.team-card .ph{width:98px;height:98px;margin:0 auto 16px;border-radius:50%;overflow:hidden;border:1px solid var(--line);box-shadow:0 12px 30px rgba(0,0,0,.5),0 0 0 5px rgba(212,175,55,.08)}
+.team-card .ph img{width:100%;height:100%;object-fit:cover}
+.team-card .tnm{font-family:var(--disp);font-weight:700;color:#fff;font-size:16px}
+.team-card .trole{font-size:12.5px;color:var(--gold);letter-spacing:.5px;margin-top:3px}
+/* portfolio image fill */
+.work .thumb img{width:100%;height:100%;object-fit:cover}
+.work .thumb{padding:0}
+</style>
 </head>
 <body>
 <div class="draft-flag">Draft Preview</div>
@@ -249,6 +283,7 @@ footer .cp{font-size:12px;color:#5a564e}
   <a href="#contact" class="nav-cta">Book a Call</a>
 </nav>
 <header class="hero">
+  <div class="hero-bg"></div>
   <canvas id="heroCanvas"></canvas>
   <div class="hero-glow"></div>
   <div class="hero-inner">
@@ -304,9 +339,9 @@ footer .cp{font-size:12px;color:#5a564e}
   <div class="head-row reveal"><div><div class="eyebrow">Featured work</div><h2 class="title">Selected work <span class="gold-text">from the fire.</span></h2></div>
   <p class="lead">A sampling of recent builds &mdash; each one shipped, deployed, and handed over in full.</p></div>
   <div class="work-grid">
-    <div class="work reveal"><div class="thumb w1"><div class="mock" style="background:linear-gradient(160deg,#1a1206,#0a0a0f)"></div></div><div class="body"><div class="tag">Web App &middot; SaaS Tool</div><h4>Interactive Client Calculator</h4><p>An installable PWA with instant, branded calculations &mdash; deployable in a day, owned outright by the client.</p><div class="meta">Built &middot; Deployed &middot; Owned</div></div></div>
-    <div class="work reveal"><div class="thumb w2"><div class="mock" style="background:linear-gradient(160deg,#222,#0a0a0f)"></div></div><div class="body"><div class="tag">Website &middot; Luxury</div><h4>Premium Brand Portfolio</h4><p>A dark, cinematic showcase for a high-end professional &mdash; work that feels like a gallery, not a feed.</p><div class="meta">Custom Build &middot; One-Time Fee</div></div></div>
-    <div class="work reveal"><div class="thumb w3"><div class="mock" style="background:linear-gradient(160deg,#0f1414,#0a0a0f)"></div></div><div class="body"><div class="tag">Professional Services</div><h4>Boutique Firm Site</h4><p>A clean, authoritative web presence engineered to convert inquiries &mdash; fast and responsive.</p><div class="meta">Custom Build &middot; Owned Outright</div></div></div>
+    <div class="work reveal"><div class="thumb"><img src="work-1.jpg" alt="Obsidian agency landing page" loading="lazy"></div><div class="body"><div class="tag">Web App &middot; SaaS Tool</div><h4>Interactive Client Calculator</h4><p>An installable PWA with instant, branded calculations &mdash; deployable in a day, owned outright by the client.</p><div class="meta">Built &middot; Deployed &middot; Owned</div></div></div>
+    <div class="work reveal"><div class="thumb"><img src="work-2.jpg" alt="Premium dashboard build" loading="lazy"></div><div class="body"><div class="tag">Website &middot; Luxury</div><h4>Premium Brand Portfolio</h4><p>A dark, cinematic showcase for a high-end professional &mdash; work that feels like a gallery, not a feed.</p><div class="meta">Custom Build &middot; One-Time Fee</div></div></div>
+    <div class="work reveal"><div class="thumb"><img src="work-3.jpg" alt="AI assistant interface" loading="lazy"></div><div class="body"><div class="tag">Professional Services</div><h4>Boutique Firm Site</h4><p>A clean, authoritative web presence engineered to convert inquiries &mdash; fast and responsive.</p><div class="meta">Custom Build &middot; Owned Outright</div></div></div>
   </div>
 </div></section>
 <section id="transform"><div class="wrap">
@@ -357,6 +392,16 @@ footer .cp{font-size:12px;color:#5a564e}
     <div class="quote reveal"><div class="mark">&ldquo;</div><p>They didn't build me a website &mdash; they built me an unfair advantage. Leads started treating me like the premium option overnight.</p><div class="who"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt=""><div><div class="nm">Marcus Reyes</div><div class="rl">Mortgage Broker</div></div></div></div>
     <div class="quote reveal"><div class="mark">&ldquo;</div><p>The AI concierge alone books me 3-4 consults a week while I sleep. It paid for the whole build in a month.</p><div class="who"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt=""><div><div class="nm">Elena Marchetti</div><div class="rl">Restaurant Owner</div></div></div></div>
     <div class="quote reveal"><div class="mark">&ldquo;</div><p>Fast, obsessive, and worth every dollar. I own everything &mdash; no monthly hostage situation. This is how it should work.</p><div class="who"><img src="https://randomuser.me/api/portraits/men/68.jpg" alt=""><div><div class="nm">David Cho</div><div class="rl">Contractor</div></div></div></div>
+  </div>
+</div></section>
+<section id="team"><div class="wrap">
+  <div class="head-row reveal"><div><div class="eyebrow">The studio</div><h2 class="title">The people <span class="gold-text">behind the build.</span></h2></div>
+  <p class="lead">A small studio with an obsessive standard. <em>(Placeholder headshots &mdash; swap for the real team anytime.)</em></p></div>
+  <div class="team">
+    <div class="team-card reveal"><div class="ph"><img src="https://randomuser.me/api/portraits/men/75.jpg" alt=""></div><div class="tnm">Marco Vance</div><div class="trole">Founder / Lead Engineer</div></div>
+    <div class="team-card reveal"><div class="ph"><img src="https://randomuser.me/api/portraits/women/68.jpg" alt=""></div><div class="tnm">Sofia Reyes</div><div class="trole">Design Director</div></div>
+    <div class="team-card reveal"><div class="ph"><img src="https://randomuser.me/api/portraits/men/52.jpg" alt=""></div><div class="tnm">Devin Park</div><div class="trole">AI Systems Lead</div></div>
+    <div class="team-card reveal"><div class="ph"><img src="https://randomuser.me/api/portraits/women/90.jpg" alt=""></div><div class="tnm">Nadia Cole</div><div class="trole">Client Success</div></div>
   </div>
 </div></section>
 <section id="faq"><div class="wrap" style="max-width:840px">
