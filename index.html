@@ -268,6 +268,35 @@ nav{background:linear-gradient(120deg,rgba(255,255,255,.07),rgba(12,12,18,.55))!
 .work .thumb img{width:100%;height:100%;object-fit:cover}
 .work .thumb{padding:0}
 </style>
+<style id="lux-polish">
+.hero-pulse{position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(circle at 22% 28%,rgba(245,217,123,.16),transparent 42%),radial-gradient(circle at 80% 38%,rgba(212,175,55,.12),transparent 40%);
+  animation:heroPulse 7s ease-in-out infinite alternate}
+@keyframes heroPulse{from{transform:scale(1);opacity:.85}to{transform:scale(1.12);opacity:1}}
+body::before{content:'';position:fixed;inset:0;z-index:9996;pointer-events:none;mix-blend-mode:screen;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,28%),rgba(245,217,123,.10),transparent 180px)}
+.hero-badge{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;letter-spacing:.6px;color:var(--cream);
+  background:linear-gradient(140deg,rgba(255,255,255,.09),rgba(255,255,255,.02));border:1px solid rgba(255,215,140,.22);
+  padding:9px 18px;border-radius:30px;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);margin-bottom:24px;box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
+.hero-badge .d{width:7px;height:7px;border-radius:50%;background:var(--gold-lt);box-shadow:0 0 10px var(--gold)}
+.ava-float{position:absolute;z-index:4;right:6%;top:22%;width:236px;padding:18px 20px;border-radius:22px;cursor:pointer;
+  background:linear-gradient(150deg,rgba(255,255,255,.11),rgba(16,15,11,.5));border:1px solid rgba(255,215,140,.22);
+  -webkit-backdrop-filter:blur(26px) saturate(160%);backdrop-filter:blur(26px) saturate(160%);
+  box-shadow:0 26px 64px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.24);will-change:transform;transition:box-shadow .3s}
+.ava-float:hover{box-shadow:0 30px 80px rgba(212,175,55,.25),inset 0 1px 0 rgba(255,255,255,.24)}
+.ava-float .row{display:flex;align-items:center;gap:12px}
+.ava-float .o{width:42px;height:42px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--gold-lt),var(--gold-deep));box-shadow:0 0 22px rgba(212,175,55,.55);flex-shrink:0;animation:orb 3s infinite}
+.ava-float .nm{font-family:var(--disp);font-weight:700;color:#fff;font-size:14.5px}
+.ava-float .on{font-size:11.5px;color:#6cd08a;display:flex;align-items:center;gap:5px;margin-top:2px}
+.ava-float .on::before{content:'';width:6px;height:6px;border-radius:50%;background:#6cd08a;box-shadow:0 0 8px #6cd08a}
+.ava-float .ln{margin-top:12px;font-size:12px;color:var(--muted);border-top:1px solid var(--line-2);padding-top:10px;font-style:italic}
+.float-chip{position:absolute;z-index:4;left:6%;bottom:19%;padding:13px 19px;border-radius:18px;font-size:13px;color:var(--cream);
+  background:linear-gradient(150deg,rgba(255,255,255,.10),rgba(16,15,11,.5));border:1px solid var(--line);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);
+  box-shadow:0 18px 50px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.2);display:flex;align-items:center;gap:10px;will-change:transform}
+.float-chip b{color:var(--gold);font-family:var(--disp);font-size:16px}
+@media(max-width:980px){.ava-float,.float-chip{display:none}}
+.service-card,.card{transform-style:preserve-3d}
+</style>
 </head>
 <body>
 <div class="draft-flag">Draft Preview</div>
@@ -284,9 +313,11 @@ nav{background:linear-gradient(120deg,rgba(255,255,255,.07),rgba(12,12,18,.55))!
 </nav>
 <header class="hero">
   <div class="hero-bg"></div>
+  <div class="hero-pulse"></div>
   <canvas id="heroCanvas"></canvas>
   <div class="hero-glow"></div>
   <div class="hero-inner">
+    <div class="hero-badge"><span class="d"></span> $750 Websites &bull; AI Apps &bull; Automation</div>
     <div class="eyebrow" style="justify-content:center">Elite Digital Builders</div>
     <h1>We engineer<br><span class="gold-text">digital dominance.</span><span class="sub-line">Websites &middot; Apps &middot; AI Systems</span></h1>
     <p class="tag">For serious businesses that refuse to look average. Cinematic websites, mobile apps, and AI automations engineered to attract leads and build trust &mdash; built once, owned forever.</p>
@@ -296,6 +327,11 @@ nav{background:linear-gradient(120deg,rgba(255,255,255,.07),rgba(12,12,18,.55))!
     </div>
   </div>
   <div class="scrollcue"><span>Scroll to discover</span><span class="bar"></span></div>
+  <div class="ava-float" id="avaFloat" onclick="openAva()">
+    <div class="row"><div class="o"></div><div><div class="nm">AI Concierge Ava</div><div class="on">Online now</div></div></div>
+    <div class="ln">&ldquo;How much for a mobile app?&rdquo; &mdash; ask me anything.</div>
+  </div>
+  <div class="float-chip" id="floatChip"><b>$750</b> &middot; 1-page authority site</div>
 </header>
 <div class="trusted"><div class="wrap"><div class="label">Built for ambitious operators across</div><div class="marquee"><div class="track" id="mq"></div></div></div></div>
 <section id="services"><div class="wrap">
@@ -513,6 +549,22 @@ function route(t){const l=t.toLowerCase();
   botSay(["Love that. I can get you a quick estimate or book a call with the team.","Which sounds better?"],()=>setChips(["Get a price","Book a consultation"]))}
 setTimeout(()=>{if(!panel.classList.contains('show'))label.style.display='block'},2500);
 setTimeout(()=>{label.style.display='none'},9000);
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+addEventListener('mousemove',function(e){
+  var x=e.clientX/innerWidth,y=e.clientY/innerHeight;
+  document.documentElement.style.setProperty('--mx',e.clientX+'px');
+  document.documentElement.style.setProperty('--my',e.clientY+'px');
+  var af=document.getElementById('avaFloat'),fc=document.getElementById('floatChip');
+  if(af)af.style.transform='translate('+((x-.5)*-26)+'px,'+((y-.5)*-22)+'px)';
+  if(fc)fc.style.transform='translate('+((x-.5)*22)+'px,'+((y-.5)*20)+'px)';
+});
+if(window.gsap){
+  gsap.from('.hero-inner > *',{y:36,opacity:0,duration:1,ease:'power3.out',stagger:.12,delay:.15});
+  gsap.from('.ava-float',{y:44,opacity:0,duration:1.1,ease:'power3.out',delay:.6});
+  gsap.from('.float-chip',{y:44,opacity:0,duration:1.1,ease:'power3.out',delay:.78});
+}
 </script>
 </body>
 </html>
